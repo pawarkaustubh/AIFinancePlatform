@@ -95,7 +95,11 @@ export function AddTransactionForm({
   };
 
   const handleScanComplete = (scannedData) => {
-    if (scannedData) {
+    if (!scannedData || !scannedData.amount) {
+      toast.error("No receipt data detected");
+      return;
+    }
+    else {
       setValue("amount", scannedData.amount.toString());
       setValue("date", new Date(scannedData.date));
       if (scannedData.description) {
